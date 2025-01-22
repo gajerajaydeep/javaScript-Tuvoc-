@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            align-items: center;
+        }
+
+        .main {
+            height: 200px;
+            width: 300px;
+            border: 2px solid black;
+            display: block;
+            justify-content: center;
+        }
+
+        #counterLabel {
+            display: flex;
+            text-align: center;
+            width: 300px;
+        }
+
+        label {
+            display: flex;
+            justify-content: center;
+            font-size: 100px;
+        }
+
+        button {
+            border: none;
+            height: 40px;
+            width: auto;
+            font-size: 20px;
+
+
+        }
+
+        .increaseBTN {
+            background-color: green;
+            color: white;
+
+        }
+
+        .decreaseBTN {
+            background-color: brown;
+            color: white;
+        }
+        .btn{
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+
+        <label id="counterLabel">0</label>
+        <div class="btn">
+            <button class="increaseBTN">increase</button>
+            <button class="decreaseBTN">decrease</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    let counter = 0;
+
+    document.querySelector('.increaseBTN').addEventListener('click', function () {
+        counter = counter + 1;
+        document.querySelector('#counterLabel').innerText = counter
+    })
+
+    document.querySelector('.decreaseBTN').addEventListener('click', function () {
+        counter = counter - 1;
+        document.querySelector('#counterLabel').innerText = counter;
+    })
+
+</script>
+
+</html>
