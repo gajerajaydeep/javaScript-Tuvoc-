@@ -2,4 +2,6 @@
 js tasks and projects
 <br/>
 
-name : jaydeep
+name : jaydeep 
+<br/>
+full name : jaydeep gajera
