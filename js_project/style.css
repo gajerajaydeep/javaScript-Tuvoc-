@@ -1,0 +1,25 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.main{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+}
+.inner-content{
+    border: 1px solid black;
+    padding: 5px 8px;
+    /* display: flex; */
+width: 400px;
+    
+}
+#submit{
+    border: none;
+    background-color: green;
+    color: white;
+    width: 400px;
+    height: 30px;
+}
