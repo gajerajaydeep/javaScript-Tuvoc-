@@ -16,10 +16,19 @@ body{
 width: 400px;
     
 }
-#submit{
+#submit, .restart{
     border: none;
     background-color: green;
     color: white;
     width: 400px;
     height: 30px;
+    margin-bottom: 10px;
+}
+.restart{
+    border: none;
+    background-color: brown;
+    color: white;
+    width: 400px;
+    height: 30px;
+    margin-bottom: 10px;
 }

@@ -1,95 +1,110 @@
-const quizeDB = [
+//questions
+const quizDB = [
     {
-        q: "Q1. full form of HTML",
-        a: "hyper text markup language",
-        b: "hyer text  lan",
-        c: "hypr  markp lan",
-        d: "123",
-        ans: "ans1"
+      q: "Q1. Full form of HTML",
+      a: "Hyper Text Markup Language",
+      b: "Hyer Text Lan",
+      c: "Hypr Markup Lan",
+      d: "123",
+      ans: "ans1"
     },
     {
-        q: "Q2. full form of CSS",
-        a: "hypr text markp lan",
-        b: "cascading styles sheet",
-        c: "123",
-        d: "hyper text markup language",
-        ans: "ans2"
-    }, {
-        q: "Q3. full form of jsx",
-        a: "hypr text markp lan",
-        b: "hyer text  lan",
-        c: "js XML",
-        d: "123",
-        ans: "ans3"
+      q: "Q2. Full form of CSS",
+      a: "Hyer Text Markup Lan",
+      b: "Cascading Style Sheet",
+      c: "123",
+      d: "Hyper Text Markup Language",
+      ans: "ans2"
+    },
+    {
+      q: "Q3. Full form of JSX",
+      a: "Hyer Text Markup Lan",
+      b: "Hyer Text Lan",
+      c: "JS XML",
+      d: "123",
+      ans: "ans3"
     }
-];
-
-const question = document.querySelector(".question");
-const option1 = document.querySelector('#option1');
-const option2 = document.querySelector('#option2');
-const option3 = document.querySelector('#option3');
-const option4 = document.querySelector('#option4');
-const submit = document.querySelector("#submit")
-const answers = document.querySelectorAll(".answer");
-
-const showScore = document.querySelector(".show-score")
-
-let questionCount = 0;
-let score = 0;
-let timeout;
-const QUESTION_TIMEOUT = 1000;
-
-function loadQuestion() {
-
-    const questionList = quizeDB[questionCount];
-    question.innerHTML = questionList.q;
-    option1.innerText = questionList.a;
-    option2.innerText = questionList.b;
-    option3.innerText = questionList.c;
-    option4.innerText = questionList.d;
-}
-clearTimeout(timeout);
-timeout = setTimeout(() => {
-    alert("Time's up for this question!");
-    moveToNextQuestion();
-}, QUESTION_TIMEOUT);
-loadQuestion();
-
-
-const getCheckAnswer = function () {
+  ];
+  
+  //DOM selectors
+  const question = document.querySelector(".question");
+  const option1 = document.querySelector('#option1');
+  const option2 = document.querySelector('#option2');
+  const option3 = document.querySelector('#option3');
+  const option4 = document.querySelector('#option4');
+  const submit = document.querySelector("#submit");
+  const answers = document.querySelectorAll(".answer");
+  const restart = document.querySelector('.restart');
+  
+  const showScore = document.querySelector(".show-score");
+  const timer = document.querySelector(".timer");
+  
+  let questionCount = 0;
+  let score = 0;
+  
+  const QUESTION_TIMEOUT = 1000; 
+  
+  //timer function
+  function startTimer() {
+    let timeOut = 15; 
+    let myInterval = setInterval(function () {
+      timeOut--;
+  
+      if (timeOut === 0) {
+        alert("Time's up!");
+        clearInterval(myInterval);
+        nextQuestion();
+      }
+  
+      timer.innerText = timeOut;
+    }, QUESTION_TIMEOUT);
+  }
+  
+  //loding questions function
+  function loadQuestion() {
+    if (questionCount < quizDB.length) {
+      const questionList = quizDB[questionCount];
+      question.innerHTML = questionList.q;
+      option1.innerText = questionList.a;
+      option2.innerText = questionList.b;
+      option3.innerText = questionList.c;
+      option4.innerText = questionList.d;
+      startTimer(); 
+    } else {
+        alert(`Your Score is ${score} / ${quizDB.length}`)
+    //   showScore.innerText = `Your Score is ${score} / ${quizDB.length}`;
+    //   restart.style.display = "block"; 
+    }
+  }
+  
+  function getCheckedAnswer() {
     let answer;
-
-    answers.forEach(function (curentAnsElem) {
-        if (curentAnsElem.checked) {
-            answer = curentAnsElem.id;
-
-        }
+    answers.forEach(function (currentAnsElem) {
+      if (currentAnsElem.checked) {
+        answer = currentAnsElem.id;
+      }
     });
     return answer;
-
-
-};
-
-submit.addEventListener('click', function () {
-    const checkedAnswer = getCheckAnswer();
-    console.log(checkedAnswer);
-
-    if (checkedAnswer == quizeDB[questionCount].ans) {
-        score++;
-    };
-
+  }
+  
+  function nextQuestion() {
     questionCount++;
-
-    if (questionCount < quizeDB.length) {
-        loadQuestion()
-    } else {
-        showScore.innerText = alert(`Your Score is ${score} / ${quizeDB.length} `)
-
+    loadQuestion();
+    answers.forEach(function (currentAnsElem) {
+        //reset all past radio button data
+      currentAnsElem.checked = false; 
+    });
+  }
+  
+  submit.addEventListener('click', function () {
+    const checkedAnswer = getCheckedAnswer();
+  
+    if (checkedAnswer === quizDB[questionCount].ans) {
+      score++;
     }
+  
+    nextQuestion();
+  });
+  
+  loadQuestion();
 
-    clearTimeout(timeout);
-    moveToNextQuestion();
-
-});
-
-loadQuestion();
